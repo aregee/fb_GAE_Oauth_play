@@ -13,14 +13,14 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations
 # under the License.
-# last update - Aregee
+# last update - Aregee rahul.nbg@gmail.com
 
 """A barebones AppEngine application that uses Facebook for login.
 
 """
 
-FACEBOOK_APP_ID = "219165848143592"
-FACEBOOK_APP_SECRET = "f752f57873d912c72035b84d222bdca9"
+FACEBOOK_APP_ID = "Your App ID"
+FACEBOOK_APP_SECRET = "Your App Secret"
 
 import base64
 import cgi
@@ -31,7 +31,6 @@ import hmac
 import logging
 import os.path
 import time
-import urllib
 import wsgiref.handlers
 import os
 import urllib
