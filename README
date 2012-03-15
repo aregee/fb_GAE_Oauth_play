@@ -1,0 +1,13 @@
+My First Google App ENgine App 
+
+This app utilizes the OAuth 2.0 Protocol to authenticate the user :)
+Secondly after authentication , users are redirected to a file upload and server page.
+There is a vulunerbility here 
+There users of the app can upload their desired files / retrive it.
+
+I am working on a project to create a WebApp based on GAE ,where users will be provided with a Coding Problem , and Set of input files for the Problems.As soon as the users solve to problem , they can upload their code and output to the webapp , the app will record the upload time.
+The Upload feature will stop 60 minutes after the login.
+
+Since this app can login with the FaceBook id using Oauth 2.0 protocols , I can host this app on Facebook and get a better turnout for the College Code Fest event . . . 
+
+
