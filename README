@@ -2,7 +2,9 @@ My First Google App ENgine App
 
 This app utilizes the OAuth 2.0 Protocol to authenticate the user :)
 Secondly after authentication , users are redirected to a file upload and server page.
-There is a vulunerbility here 
+There is a vulnerability here,even if the user doesn't login , navigating to /main any one can access the data.. :( 
+need a fix for this... 
+
 There users of the app can upload their desired files / retrive it.
 
 I am working on a project to create a WebApp based on GAE ,where users will be provided with a Coding Problem , and Set of input files for the Problems.As soon as the users solve to problem , they can upload their code and output to the webapp , the app will record the upload time.
