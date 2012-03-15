@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<title>FB_OauTh and Data Upload</title>
+		<link rel="stylesheet" type="text/css" href="css/main.css"/>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+	</head>
+	<body>
+
+	<div style="width: 100%;">
+		<div class="topLine">
+			<div style="float: left;"><a href="https://www.facebook.com/iamaregee"><img src="images/facebook_icon.gif"></a></div>
+			<div style="float: left;" class="headline">A Barebones FaceBook App running on Google AppEngine with OAuth 2.0</div>
+			<div style="float: right;"><a href="https://http://oauth.net/2/"><img src="images/oauthLogo.png"></a></div>
+		</div>
+	</div>
+{% if current_user %}
+      <p><a href="{{ current_user.profile_url }}"><img src="http://graph.facebook.com/{{ current_user.id }}/picture"/></a></p>
+      <p>You are logged in as {{ current_user.name|escape }}</p>
+      <p><a href="/auth/logout">Log out</a></p>
+      <iframe src="https://www.facebook.com/plugins/like.php?href=YOUR_URL"
+        scrolling="no" frameborder="0"
+        style="border:none; width:450px; height:80px"></iframe>
+    {% else %}
+ 
+      <p><left>You are not yet logged into this site</left></p>
+      <p><left><a href="/auth/login"><img src="images/fconnect.png"></left></a></p>
+	<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=219165848143592";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<div style="float: center;" class="fb-login-button" data-show-faces="true" data-width="200" data-max-rows="1"></div>
+<div style="clear: both;"/>	
+
+ 
+</body>
+<center><img src="http://code.google.com/appengine/images/appengine-noborder-120x30.gif" 
+alt="Powered by Google App Engine" /></center>
+</html>
