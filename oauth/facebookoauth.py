@@ -1,26 +1,14 @@
 #!/usr/bin/env python
 #
-# Copyright 2010 Facebook
+#Used the Standard BoilerPlate from Facebook Pyhton-sdk to implement FConnect with oAuth2.0
+#Added File Upload Feature- Aregee
 #
-# Licensed under the Apache License, Version 2.0 (the "License"); you may
-# not use this file except in compliance with the License. You may obtain
-# a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
-# License for the specific language governing permissions and limitations
-# under the License.
-# last update - Aregee rahul.nbg@gmail.com
-
 """A barebones AppEngine application that uses Facebook for login.
 
 """
 
-FACEBOOK_APP_ID = "Your App ID"
-FACEBOOK_APP_SECRET = "Your App Secret"
+FACEBOOK_APP_ID = "app id "
+FACEBOOK_APP_SECRET = "app secret"
 
 import base64
 import cgi
@@ -31,6 +19,7 @@ import hmac
 import logging
 import os.path
 import time
+import urllib
 import wsgiref.handlers
 import os
 import urllib
@@ -64,7 +53,7 @@ class BaseHandler(webapp.RequestHandler):
             if user_id:
                 self._current_user = User.get_by_key_name(user_id)
         return self._current_user
-
+	       #self.redirect('/auth/main')
 
 class HomeHandler(BaseHandler):
     def get(self):
@@ -98,7 +87,7 @@ class LoginHandler(BaseHandler):
             set_cookie(self.response, "fb_user", str(profile["id"]),
                        expires=time.time() + 30 * 86400)
             self.redirect("/")
-	    self.redirect('/main')
+	    self.redirect('/auth/main')
         else:
             self.redirect(
                 "https://graph.facebook.com/oauth/authorize?" +
@@ -156,9 +145,9 @@ def cookie_signature(*parts):
 class MainHandler(webapp.RequestHandler):
     def get(self):
 	upload_url = blobstore.create_upload_url('/upload')
-        self.response.out.write('<html><body><a href="/">Home</`a>')
+        self.response.out.write('<html><body>')
         self.response.out.write('<form action="%s" method="POST" enctype="multipart/form-data">' % upload_url)
-        self.response.out.write("""Upload File: <input type="file" name="file"><br> <input type="submit" name="submit" value="Submit"> </form></body></html>""")
+        self.response.out.write("""Upload File: <input type="file" name="file"><br> <input type="submit" name="submit" value="Submit"> </form></body><right><a href="/">Home</`a></right></html>""")
 
         for b in blobstore.BlobInfo.all():
             self.response.out.write('<li><a href="/serve/%s' % str(b.key()) + '">' + str(b.filename) + '</a>')
@@ -167,7 +156,7 @@ class UploadHandler(blobstore_handlers.BlobstoreUploadHandler):
     def post(self):
         upload_files = self.get_uploads('file')
         blob_info = upload_files[0]
-        self.redirect('/main')
+        self.redirect('/auth/main')
 
 class ServeHandler(blobstore_handlers.BlobstoreDownloadHandler):
     def get(self, blob_key):
@@ -182,7 +171,7 @@ def main():
         (r"/", HomeHandler),
         (r"/auth/login", LoginHandler),
         (r"/auth/logout", LogoutHandler),
-	(r"/main", MainHandler),
+	(r"/auth/main", MainHandler),
 	(r"/upload", UploadHandler),
 	(r"/serve/([^/]+)?", ServeHandler),
     ],debug=True))
